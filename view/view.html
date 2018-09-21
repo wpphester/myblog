@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客-文章详情</title>
+    <link rel="shortcut icon" href="../public/images/小图标14.jpg"/>
+    <link rel="stylesheet" href="../public/css/bootstrap-theme.min.css"/>
+    <link href="../public/fontAwesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../public/css/index.css"/>
+</head>
+<body>
+    <div class="navdiv">
+    <div class="red"></div>
+    <div class="bg">
+        <div class="header">
+            <div class="logo">
+                <p>
+                    <a href="">
+                        <span>明星</span> 说
+                        <small>Which one you like? Maybe not here....</small>
+                    </a>
+                </p>
+            </div>
+            <div class="menu_nav">
+                <ul>
+                    {% for type in types %}
+                    {% if type.tid == mytype %}
+                    <li><a href="/?mytype={{type.tid}}" class="active">{{type.tname}}</a></li>
+                    {%else%}
+                    <li><a href="/?mytype={{type.tid}}">{{type.tname}}</a></li>
+                    {%endif%}
+                    {%endfor%}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="content ccon">
+        <div class="content_resize">
+            <div class="maincon">
+                <div class="listBox">
+                    <h2><span>{{content.title}}</span></h2><div class="clr"></div>
+                    <p>
+                        <span>类别：{{content.types}}</span> &nbsp;|&nbsp;
+                        <span>时间：{{content.addTime |date('Y-m-d')}}</span> &nbsp;|&nbsp;
+                        <span>阅读量：{{content.views}}</span>&nbsp;|&nbsp;
+                        <span>评论：{%if content.comments%}{{content.comments}}{%else%}0{%endif%}</span>
+                    </p>
+                    <img src="{{content.photo}}" width="563" height="306" alt="image" class="fl" />
+                    <em class="condiv1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{content.content}}</em>
+                </div>
+                <div class="jge pl"></div>
+                <div class="img1 ff"></div>
+                <div class="ban pls">评论<span>Comment Board</span></div>
+                <div class="listBox message">
+                    <h3 class="textLeft">一共有 <span id="messageCount">{{content.comments}}</span> 条评论</h3>
+                    {%if userInfo.uid%}
+                    <p class="textLeft clear">
+                        <textarea id="messageContent"></textarea>
+                        <input type="hidden" id="contentId" value="{{content.cid}}" />
+                        <button id="messageBtn" class="submit">提交</button>
+                    </p>
+                    {%else%}
+                    <script>alert('你还没有登陆，请先登陆');location.href='http://127.0.0.1/'</script>
+                    {%endif%}
+                    <div class="messageList">
+                        <div class="messageBox">
+                            <p class="name clear">
+                                <div class="f1"><span class="glyphicon glyphicon-user">&nbsp;</span><span>评论人</span></div>
+                                <div class="dzl"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+                                <br />
+                                <div class="fr">2018年8月20日</div>
+                            </p>
+                            <div class="plcon">这个文章写的不错，这个文章写的不错，这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错</div>
+                        </div>
+
+                        <div class="messageBox">
+                            <p class="name clear">
+                            <div class="f1"><span class="glyphicon glyphicon-user">&nbsp;</span><span>评论人</span></div>
+                            <div class="dzl"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+                            <br />
+                            <div class="fr">2018年8月20日</div>
+                            </p>
+                            <div class="plcon">这个文章写的不错，这个文章写的不错，这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错</div>
+                        </div>
+
+                        <div class="messageBox">
+                            <p class="name clear">
+                            <div class="f1"><span class="glyphicon glyphicon-user">&nbsp;</span><span>评论人</span></div>
+                            <div class="dzl"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+                            <br />
+                            <div class="fr">2018年8月20日</div>
+                            </p>
+                            <div class="plcon">这个文章写的不错，这个文章写的不错，这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错</div>
+                        </div>
+
+                        <div class="messageBox">
+                            <p class="name clear">
+                            <div class="f1"><span class="glyphicon glyphicon-user">&nbsp;</span><span>评论人</span></div>
+                            <div class="dzl"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+                            <br />
+                            <div class="fr">2018年8月20日</div>
+                            </p>
+                            <div class="plcon">这个文章写的不错，这个文章写的不错，这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错这个文章写的不错</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        Copyright © pangpang.com 版权所有 | 京xxx备xxxxxxxxx号
+    </div>
+
+    <div id="fk" style="display: none">
+        <a href="" target="_top"><span class="glyphicon glyphicon-open" id="xs"></span></a>
+    </div>
+
+    <script src="../public/js/jquery-1.12.4.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!--分页-->
+<nav>
+    <ul class="pager">
+        <li class="previous">
+            {% if page<=1 %}
+            <span>上一页</span>
+            {% else %}
+            <a href="/admin/{{tag}}?page={{page-1}}">&larr;上一页</a>
+            {% endif %}
+        </li>
+        <li>
+            <strong>当前是第{{page}}页，一共有{{pages}}页</strong>
+        </li>
+        <li class="next">
+            {% if page>=pages %}
+            <span>下一页</span>
+            {% else %}
+            <a href="/admin/{{tag}}?page={{page+1}}">下一页&rarr;</a>
+            {% endif %}
+        </li>
+    </ul>
+</nav>

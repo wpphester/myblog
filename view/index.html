@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目-我的博客</title>
+    <link rel="shortcut icon" href="../public/images/小图标14.jpg"/>
+    <link rel="stylesheet" href="../public/css/bootstrap-theme.min.css"/>
+    <link href="../public/fontAwesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../public/css/index.css"/>
+</head>
+<body>
+    <div class="navdiv">
+        <div class="red"></div>
+        <div class="bg">
+            <div class="header">
+                <div class="logo">
+                    <p>
+                        <a href="">
+                            <span>明星</span> 说
+                            <small>Which one you like? Maybe not here....</small>
+                        </a>
+                    </p>
+                </div>
+                <div class="menu_nav">
+                    <ul>
+                        {% for type in types %}
+                            {% if type.tid == mytype %}
+                                <li><a href="/?mytype={{type.tid}}" class="active">{{type.tname}}</a></li>
+                            {%else%}
+                                <li><a href="/?mytype={{type.tid}}">{{type.tname}}</a></li>
+                            {%endif%}
+                        {%endfor%}
+                        <li><a href="#liuy">留言板</a></li>
+                        <li><a href="javascript:void (0)" id="wdh">关于我</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fh5co-offcanvas" style="display: none">
+        <a href="#" class="fh5co-close-offcanvas js-fh5co-close-offcanvas">
+            <span><i class="icon-cross3"><span class="glyphicon glyphicon-remove"></span></i> <span>Close</span></span>
+        </a>
+        <div class="fh5co-bio">
+            <figure>
+                <img src="../public/images/psb%20(3).jpg"  class="img-responsive" />
+            </figure>
+            <h3 class="heading">About Me</h3>
+            <h2>胖胖的易峰情书</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hello~艾瑞巴蒂..“易生爱峰、易路有李”，本人峰峰的忠实粉啦。风里雨里，坚持为你，春风十里不如你，加油峰峰，好喜欢你，每天为你打call... </p>
+        </div>
+
+        <div class="fh5co-menu">
+            <div class="fh5co-box">
+                <h3 class="heading">Categories</h3>
+                <ul>
+                    <li><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;&nbsp;姓&nbsp;&nbsp;&nbsp;&nbsp;名：喜欢峰峰的王胖胖</li>
+                    <li><span class="glyphicon glyphicon-fire"></span>&nbsp;&nbsp;&nbsp;&nbsp;星&nbsp;&nbsp;&nbsp;&nbsp;座：水瓶座</li>
+                    <li><span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;&nbsp;&nbsp;联系电话：18397718069</li>
+                    <li><span class="glyphicon glyphicon-sunglasses"></span>&nbsp;&nbsp;&nbsp;&nbsp;身&nbsp;&nbsp;&nbsp;&nbsp;高：秘密，你猜丫</li>
+                    <li><span class="glyphicon glyphicon-ice-lolly-tasted"></span>&nbsp;&nbsp;&nbsp;&nbsp;体&nbsp;&nbsp;&nbsp;&nbsp;重：听说三位数的体重嫁不出去..</li>
+                    <li><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;&nbsp;&nbsp;爱&nbsp;&nbsp;&nbsp;&nbsp;好：峰峰，所有与峰峰相关的都喜欢</li>
+                    <li><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;&nbsp;家庭地址：湖南岳阳</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="content_resize">
+            <div class="mainbar">
+                {% for content in contents %}
+                <div class="article">
+                    <h2><span>{{content.title}}</span></h2><div class="clr"></div>
+                    <p>
+                        <span>类别：{{content.types}}</span> &nbsp;|&nbsp;
+                        <span class="date">时间：{{content.addTime |date('Y-m-d')}}</span> &nbsp;|&nbsp;
+                        <span>阅读量：{{content.views}}</span>&nbsp;|&nbsp;
+                        <span>评论：{%if content.comments%}{{content.comments}}{%else%}0{%endif%}</span>
+                    </p>
+                    <img src="{{content.photo}}" width="263" height="146" alt="image" class="fl" />
+                    <p class="condiv">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{content.content}}</p>
+                    <button class="btn"><a href="/view?cid={{content.cid}}" style="color: #fff;text-decoration: none">阅读全文</a></button>
+                </div>
+                {% endfor %}
+
+                <div class="pager">
+                    <ul class="clear">
+
+                        <li class="previous">
+                            {% if page<=1 %}
+                            <span>上一页</span>
+                            {% else %}
+                            <a href="?page={{page-1}}&mytype={{mytype}}">上一页</a>
+                            {% endif %}
+                        </li>
+
+                        <li>
+                            <strong> {{page}} / {{pages}} </strong>
+                        </li>
+
+                        <li class="next">
+                            {% if page>=pages %}
+                            <span>下一页</span>
+                            {% else %}
+                            <a href="?page={{page+1}}&mytype={{mytype}}">下一页</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="gadget" style="margin: 0 0 8px 0;padding: 16px 0 16px 0">
+                    {% if userInfo.uid %}
+                    <div class="rightBox" id="userInfo">
+                        <div class="title"><img src="../public/images/bq.jpg"  width="230px" height="50px" style="margin-left: -20px"/><span style="width: 150px;margin-left: -162px;font-size: 24px">用户信息</span></div>
+                        <p class="userName"><span class="colDark" style="font-size: 20px;font-family: 华文琥珀;color: #333">{{userInfo.uname}}</span></p>
+                        <!--判断是否是管理员-->
+                        {% if userInfo.isAdmin==1 %}
+                        <p class="adminInfo">
+                            <span class="colDanger">Hello，管理员！</span>
+                            <a href="/admin">进入管理界面</a>
+                        </p>
+                        {%else%}
+                        <p><span class="colDanger">你好，欢迎光临我的博客！</span></p>
+                        {%endif%}
+                        <p><span class="colDark"><a href="javascript:;" id="logout">退出</a></span></p>
+                    </div>
+                    {%else%}
+                    <div class="rightBox" id="loginBox">
+                        <div class="title"><img src="../public/images/bq.jpg"  width="140px" height="50px" style="margin-left: -10px"/><span>登&nbsp;&nbsp;录</span></div>
+                        <div class="line"><span class="colDark">用户名：</span><input name="username" type="text" /><em></em></div>
+                        <div class="line"><span class="colDark">密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input name="password" type="password" /><em></em></div>
+                        <div class="line"><span class="colDark"></span><button>登 录</button></div>
+                        <p class="textRight">还没注册？<a href="javascript:;" class="colMint">马上注册</a>　</p>
+                        <p class="colWarning textCenter"></p>
+                    </div>
+
+                    <div class="rightBox" id="registerBox" style="display:none">
+                        <div class="title"><img src="../public/images/bq.jpg"  width="140px" height="50px" style="margin-left: -10px"/><span>注&nbsp;&nbsp;册</span></div>
+                        <div class="line"><span class="colDark">用户名：</span><input name="username" type="text" id="zcuname"/></div>
+                        <div class="line"><span class="colDark">密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input name="password" type="password" id="zcpwd"/></div>
+                        <div class="line"><span class="colDark">确&nbsp;&nbsp;&nbsp;&nbsp;认：</span><input name="repassword" type="password" id="zcpwdagain"/></div>
+                        <div class="line"><span class="colDark"></span><button>注 册</button></div>
+                        <p class="textRight">已有账号？<a href="javascript:;" class="colMint">马上登录</a>　</p>
+                        <p class="colWarning textCenter"></p>
+                    </div>
+                    {%endif%}
+                </div>
+
+                <div class="gadget">
+                    <h2 class="star"><img src="../public/images/bq.jpg"  width="230px" height="50px" style="margin-left: -30px"/><span class="gadsp">最新文章</span> </h2><div class="clr"></div>
+                    <ul class="sb_menu dian">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">TemplateInfo</a></li>
+                        <li><a href="#">Style Demo</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Style Demo</a></li>
+                        <li><a href="#">Style Demo</a></li>
+                        <li><a href="#">Archives</a></li>
+                        <li><a href="#">TemplateInfo</a></li>
+                        <li><a href="#">Style Demo</a></li>
+                        <li><a href="#" title="Website Templates">Web Templates</a></li>
+                    </ul>
+                </div>
+                <div class="gadget">
+                    <h2 class="star"><img src="../public/images/bq.jpg"  width="230px" height="50px" style="margin-left: -30px"/><span class="gadsp">点击排行</span> </h2><div class="clr"></div>
+                    <ul class="sb_menu shu">
+                        <li><span class="glyphicon glyphicon-object-align-bottom"></span>&nbsp;&nbsp;<a href="#">Home</a></li>
+                        <li><span class="glyphicon glyphicon-object-align-bottom"></span>&nbsp;&nbsp;<a href="#">TemplateInfo</a></li>
+                        <li><span class="glyphicon glyphicon-object-align-bottom"></span>&nbsp;&nbsp;<a href="#">Style Demo</a></li>
+                        <li><span class="glyphicon glyphicon-object-align-bottom"></span>&nbsp;&nbsp;<a href="#">Style Demo</a></li>
+                        <li><span class="glyphicon glyphicon-object-align-bottom"></span>&nbsp;&nbsp;<a href="#">Style Demo</a></li>
+                    </ul>
+                </div>
+                <div class="gadget">
+                    <h2 class="star"><img src="../public/images/bq.jpg"  width="230px" height="50px" style="margin-left: -30px"/><span class="gadsp">友情链接</span> </h2><div class="clr"></div>
+                    <ul class="sb_menu pi">
+                        <li><span class="glyphicon glyphicon-erase"></span>&nbsp;&nbsp;&nbsp;<a href="#">QQ</a></li>
+                        <li><span class="glyphicon glyphicon-erase"></span>&nbsp;&nbsp;&nbsp;<a href="#">微信</a></li>
+                        <li><span class="glyphicon glyphicon-erase"></span>&nbsp;&nbsp;&nbsp;<a href="#">百度贴吧</a></li>
+                        <li><span class="glyphicon glyphicon-erase"></span>&nbsp;&nbsp;&nbsp;<a href="#">新浪微博</a></li>
+                        <li><span class="glyphicon glyphicon-erase"></span>&nbsp;&nbsp;&nbsp;<a href="#">知乎</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="liuy">
+            <a href="" name="liuy">
+                <div class="jge"></div>
+                <div class="img1"></div>
+                <div class="ban">留言板<span>Message Board</span></div>
+                <div class="dhly">
+
+                    <div class="logo_bg">
+                    <div class="logo_divider">
+                        <h5>喜欢峰峰的笑<span>湖南岳阳</span></h5>
+                        <p class="content1">&nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet consectetur adipiscing elit. Pellentesque ligula erat mattis.Fusce arcu erat
+                            feugiat vel ultrices non vehicula quis lorem.</p>
+                        <p class="more"><a href="#" title="more">more</a></p>
+                    </div>
+                    <br class="spacer" />
+                </div>
+
+                    <div class="webdesign_bg">
+                    <div class="webdesign_divider">
+                        <h5>我峰世界最帅<span>浙江杭州</span></h5>
+                        <p class="content1">&nbsp;&nbsp;&nbsp;&nbsp;Mauris bibendum porttitor ipsum. Quisque enim nibh tristique et dignissim non aliquam vitae purus.
+                            Pellentesque eleifend, lacus et cursus gravida, nisi magna pulvinar. </p>
+                        <p class="more"><a href="#" title="more">more</a></p>
+                    </div>
+                    <br class="spacer" />
+                </div>
+
+                    <div class="illustration_bg">
+                    <div class="illustration_divider">
+                        <h5>暖男峰峰的日常<span>湖南衡阳</span></h5>
+                        <p class="content1">&nbsp;&nbsp;&nbsp;&nbsp;Mauris bibendum porttitor ipsum. Quisque enim nibh tristique et dignissim non aliquam vitae  purus.</p>
+                        <p class="more"><a href="#" title="more">more</a></p>
+                    </div>
+                    <br class="spacer" />
+                </div>
+
+                    <div class="illustration01_bg">
+                    <div class="illustration01_divider">
+                        <h5>为我峰打call<span>湖北武汉</span></h5>
+                        <p class="content1">&nbsp;&nbsp;&nbsp;&nbsp;Pellentesque eleifend, lacus et cursus gravida, nisi magna pulvinar.  Aliquam vel nunc. Etiam libero.
+                            Phasellus magna. Etiam lacinia. Maecenas pretium vehicula odio. Proin tortor.</p>
+                        <p class="more"><a href="#" title="more">more</a></p>
+                    </div>
+                    <br class="spacer" />
+                </div>
+
+                </div>
+                <div class="wyly">
+                    <button>我要留言</button>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div id="footer">
+        Copyright © pangpang.com 版权所有 | 京xxx备xxxxxxxxx号
+    </div>
+
+    <div id="fk" style="display: none">
+        <a href="" target="_top"><span class="glyphicon glyphicon-open" id="xs"></span></a>
+    </div>
+
+    <script src="../public/js/jquery-1.12.4.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <script src="../public/js/index.js"></script>
+</body>
+</html>
